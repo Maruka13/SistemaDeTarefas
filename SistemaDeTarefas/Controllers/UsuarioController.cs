@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeTarefas.Models;
+using SistemaDeTarefas.Repositorios.Interfaces;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SistemaDeTarefas.Controllers
 {
@@ -8,9 +10,17 @@ namespace SistemaDeTarefas.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<UsuarioModel>> BuscarTodosUsuarios()
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
+
+        public UsuarioController(IUsuarioRepositorio usuarioRepositorio)
         {
+            _usuarioRepositorio = usuarioRepositorio;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<UsuarioModel>>> BuscarTodosUsuarios()
+        {
+            List<UsuarioModel> usuarios = await _usuarioRepositorio.BuscarTodosUsuarios();
             return Ok();
         }
     }
