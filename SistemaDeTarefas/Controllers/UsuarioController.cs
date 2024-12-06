@@ -32,7 +32,7 @@ namespace SistemaDeTarefas.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UsuarioModel>> Cadastrard([FromBody] UsuarioModel usuarioModel)
+        public async Task<ActionResult<UsuarioModel>> Cadastrar([FromBody] UsuarioModel usuarioModel)
         {
             UsuarioModel usuario = await _usuarioRepositorio.Adicionar(usuarioModel);
             return Ok(usuario);
@@ -49,7 +49,7 @@ namespace SistemaDeTarefas.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<UsuarioModel>> Apagar(int id)
         {
-            UsuarioModel usuario = await _usuarioRepositorio.Apagar(id);
+            bool apagado = await _usuarioRepositorio.Apagar(id);
             return Ok(apagado);
         }
 
